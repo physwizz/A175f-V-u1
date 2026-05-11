@@ -1,0 +1,14 @@
+config CAM_BUCKBOOST
+	tristate "camera buckboost"
+	help
+	  This is config for camera buck boost
+
+config CAM_BB_MAX77816
+	tristate "camera buckboost driver(MAX77816)"
+	depends on CAM_BUCKBOOST
+	help
+	  This module is the Buckboost driver of the camera.
+	  buckboost is a driver for camera power.
+	  It is operated using MAX77816.
+	  you can select whether to use each project and enable config in the general variant.
+

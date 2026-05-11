@@ -1,0 +1,110 @@
+&pio {
+	if_pmic_irq: if_pmic_irq {
+		pins_cmd_dat {
+			pinmux = <MTK_PINMUX(SEC_GPIO_NUM(AP,pio,7), 0)>;
+			slew-rate = <1>;
+			bias-pull-up;
+		};
+	};
+};
+
+&pio {
+	usbpd_irq: usbpd_irq {
+		pins_cmd_dat {
+			pinmux = <MTK_PINMUX(SEC_GPIO_NUM(AP,pio,8), 0)>;
+			slew-rate = <1>;
+			bias-pull-up;
+		};
+	};
+};
+
+&i2c0 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	clock-frequency = <400000>;
+	mediatek,use-open-drain;
+	s2mf301: s2mf301@3A {
+		status = "okay";
+		compatible = "samsung,s2mf301mfd";
+		reg = <0x3A>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&if_pmic_irq>;
+		s2mf301,irq-gpio = <SEC_GPIO_REF(AP,pio,7) 1>;
+		s2mf301,wakeup;
+	};
+	usbpd-s2mf301@3C {
+		status = "okay";
+		compatible = "s2mf301-usbpd";
+		reg = <0x3C>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&usbpd_irq
+#if 0
+						&usbpd_vbus_discharging
+#endif
+#if 0
+						&pogo_dock_int
+#endif
+						>;
+		usbpd,usbpd_int = <SEC_GPIO_REF(AP,pio,8) 0>;
+#if 0
+		usbpd,vbus_discharging = <SEC_GPIO_REF(${usbpd_vbus_discharging_gpio}) 0>;
+#endif
+#if 0
+		pogo_dock_int = <SEC_GPIO_REF(${pogo_gpio}) 0>;
+#endif
+
+		pdic-manager {
+			/* sink */
+			pdic,max_power = <5000>;
+			pdic_op_power = <2500>;
+			pdic_max_voltage = <6000>;
+			pdic_max_current = <2000>;
+			pdic,min_current = <500>;
+
+			pdic,giveback = <0>;
+			pdic,usb_com_capable = <1>;
+			pdic,no_usb_suspend = <1>;
+
+			/* source */
+			source,max_voltage = <5000>;
+			source,min_voltage = <4000>;
+			source,max_power = <2500>;
+
+			/* sink cap */
+			sink,capable_max_voltage = <5000>;
+		};
+	};
+};
+
+
+/* /home/dpi/qb5_8814/workspace/P4_1716/android/kernel/kmodule/mfd/VINCE/slsi/s2mf301/s2mf301_mtk.a17.dtsi */
+/delete-node/ &s2mf301;
+
+&pio {
+	i2c0_pins: i2c0_pins {
+			pins_cmd_dat {
+			pinmux = <PINMUX_GPIO130__FUNC_SCL0>,
+					<PINMUX_GPIO131__FUNC_SDA0>;
+			bias-disable;
+			mediatek,drive-strength-adv = <00>;
+			drive-strength = <3>;
+		};
+	};
+};
+
+&i2c0 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	clock-frequency = <400000>;
+	mediatek,use-open-drain;
+	s2mf301: s2mf301@3A {
+		status = "okay";
+		compatible = "samsung,s2mf301mfd";
+		reg = <0x3A>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&if_pmic_irq &i2c0_pins>;
+		s2mf301,irq-gpio = <SEC_GPIO_REF(AP,pio,7) 1>;
+		s2mf301,wakeup;
+	};
+};
+

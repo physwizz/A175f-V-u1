@@ -1,0 +1,28 @@
+
+&pio {
+	cam_bb_max77816_enable_low: cam_bb_max77816_enable_low {
+		pins_cmd_dat {
+			pinmux = <MTK_PINMUX(SEC_GPIO_NUM(AP,pio,69), 0)>;
+			output-low;
+		};
+	};
+	cam_bb_max77816_enable_high: cam_bb_max77816_enable_high {
+		pins_cmd_dat {
+			pinmux = <MTK_PINMUX(SEC_GPIO_NUM(AP,pio,69), 0)>;
+			output-high;
+		};
+	};
+};
+
+/* Buck Boost - Max77816 */
+&sw_i2c1 {
+	cam_bb_max77816:cam_buckboost_max77816@30 {
+		compatible = "camera_buckboost,max77816";
+		reg = <0x18>;
+		status = "okay";
+
+		pinctrl-names = "bb_en_off", "bb_en_on";
+		pinctrl-0 = <&cam_bb_max77816_enable_low>;
+		pinctrl-1 = <&cam_bb_max77816_enable_high>;
+	};
+};

@@ -1,0 +1,136 @@
+/*
+ * SAMSUNG Panel Device Tree Source
+ *
+ * Copyright (c) Samsung Electronics Co., Ltd.
+ *		http://www.samsung.com
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+#include <dt-bindings/display/rf-band-id.h>
+
+/ {
+	fragment@freq_hop {
+		target-path = "/";
+		__overlay__ {
+			db7f2010b_a17_old_freq_hop_table: db7f2010b_a17_old_freq_hop_table {
+				tb1 { id = <GSM850>; range = <0 0>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb2 { id = <EGSM900>; range = <0 0>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb3 { id = <DCS1800>; range = <0 0>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb4 { id = <PCS1900>; range = <0 0>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb5 { id = <WB01>; range = <10562 10838>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb6 { id = <WB02>; range = <9662 9938>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb7 { id = <WB03>; range = <1162 1513>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb8 { id = <WB04>; range = <1537 1738>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb9 { id = <WB05>; range = <4357 4411>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb10 { id = <WB05>; range = <4412 4458>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb11 { id = <WB06>; range = <4387 4413>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb12 { id = <WB07>; range = <2237 2563>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb13 { id = <WB08>; range = <2937 3088>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb14 { id = <WB19>; range = <712 763>; dsi_freq = <898000>; osc_freq = <96500>; };
+//				tb15 { id = <LB01>; range = <0 495>; dsi_freq = <898000>; osc_freq = <94500>; };
+//				tb16 { id = <LB01>; range = <496 599>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb17 { id = <LB02>; range = <600 739>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb18 { id = <LB02>; range = <740 1199>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb19 { id = <LB03>; range = <1200 1344>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb20 { id = <LB03>; range = <1345 1624>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb21 { id = <LB03>; range = <1625 1949>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb22 { id = <LB04>; range = <1950 2219>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb23 { id = <LB04>; range = <2220 2399>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb24 { id = <LB05>; range = <2400 2534>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb25 { id = <LB05>; range = <2535 2649>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb26 { id = <LB07>; range = <2750 3449>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb27 { id = <LB08>; range = <3450 3709>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb28 { id = <LB08>; range = <3710 3799>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb29 { id = <LB12>; range = <5010 5179>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb30 { id = <LB13>; range = <5180 5279>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb31 { id = <LB14>; range = <5280 5379>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb32 { id = <LB17>; range = <5730 5849>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb33 { id = <LB18>; range = <5850 5999>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb34 { id = <LB19>; range = <6000 6074>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb35 { id = <LB19>; range = <6075 6149>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb36 { id = <LB20>; range = <6150 6449>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb37 { id = <LB21>; range = <6450 6599>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb38 { id = <LB25>; range = <8040 8179>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb39 { id = <LB25>; range = <8180 8689>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb40 { id = <LB26>; range = <8690 8924>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb41 { id = <LB26>; range = <8925 9039>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb42 { id = <LB28>; range = <9210 9489>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb43 { id = <LB28>; range = <9490 9659>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb44 { id = <LB29>; range = <9660 9769>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb45 { id = <LB30>; range = <9770 9869>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb46 { id = <LB32>; range = <9920 10014>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb47 { id = <LB32>; range = <10015 10359>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb48 { id = <LB34>; range = <36200 36225>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb49 { id = <LB34>; range = <36226 36349>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb50 { id = <LB38>; range = <37750 37964>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb51 { id = <LB38>; range = <37965 38049>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb52 { id = <LB38>; range = <38050 38249>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb53 { id = <LB39>; range = <38250 38609>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb54 { id = <LB39>; range = <38610 38649>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb55 { id = <LB40>; range = <38650 38669>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb56 { id = <LB40>; range = <38670 38949>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb57 { id = <LB40>; range = <38950 39634>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb58 { id = <LB40>; range = <39635 39649>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb59 { id = <LB41>; range = <39650 39919>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb60 { id = <LB41>; range = <39920 40604>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb61 { id = <LB41>; range = <40605 40689>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb62 { id = <LB41>; range = <40690 41589>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb63 { id = <LB42>; range = <41590 43589>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb64 { id = <LB48>; range = <55240 56739>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb65 { id = <LB66>; range = <66436 66705>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb66 { id = <LB66>; range = <66706 67335>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb67 { id = <LB71>; range = <68586 68935>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb68 { id = <N001>; range = <422000 427380>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb69 { id = <N001>; range = <427381 433980>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb70 { id = <N002>; range = <386000 388780>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb71 { id = <N002>; range = <388781 397980>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb72 { id = <N003>; range = <361000 363880>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb73 { id = <N003>; range = <363881 367400>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb74 { id = <N005>; range = <175220 176480>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb75 { id = <N005>; range = <176481 178780>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb76 { id = <N007>; range = <524000 538000>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb77 { id = <N008>; range = <185000 190180>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb78 { id = <N008>; range = <190181 191980>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb79 { id = <N012>; range = <145800 149200>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb80 { id = <N013>; range = <149200 151200>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb81 { id = <N014>; range = <151600 153580>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb82 { id = <N018>; range = <172000 175000>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb83 { id = <N020>; range = <158200 164180>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb84 { id = <N025>; range = <386000 388780>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb85 { id = <N025>; range = <388781 398980>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb86 { id = <N026>; range = <171800 176480>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb87 { id = <N026>; range = <176481 178800>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb88 { id = <N028>; range = <151600 157180>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb89 { id = <N028>; range = <157181 160580>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb90 { id = <N029>; range = <143400 145580>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb91 { id = <N030>; range = <470000 471980>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb92 { id = <N038>; range = <514000 518280>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb93 { id = <N038>; range = <518281 519980>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb94 { id = <N038>; range = <519981 523980>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb95 { id = <N039>; range = <376000 383180>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb96 { id = <N039>; range = <383181 384000>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb97 { id = <N040>; range = <460000 460380>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb98 { id = <N040>; range = <460381 465980>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb99 { id = <N040>; range = <465981 479680>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb100 { id = <N040>; range = <479681 480000>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb101 { id = <N041>; range = <499200 504580>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb102 { id = <N041>; range = <504581 518280>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb103 { id = <N041>; range = <518281 519980>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb104 { id = <N041>; range = <519981 537980>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb105 { id = <N048>; range = <636667 646666>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb106 { id = <N066>; range = <422000 427380>; dsi_freq = <898000>; osc_freq = <94500>; };
+				tb107 { id = <N066>; range = <427381 439980>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb108 { id = <N071>; range = <123400 130380>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb109 { id = <N077>; range = <620000 680000>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb110 { id = <N078>; range = <620000 653333>; dsi_freq = <898000>; osc_freq = <96500>; };
+				tb111 { id = <N079>; range = <693334 733333>; dsi_freq = <898000>; osc_freq = <96500>; };
+			};
+		};
+	};
+};
+
+
+

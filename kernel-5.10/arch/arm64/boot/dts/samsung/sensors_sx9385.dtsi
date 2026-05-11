@@ -1,0 +1,456 @@
+#define SX9385 1
+#define SX9385_BUILT_IN 1
+#define SX9385_SUB 1
+#define SX9385_SUB_BUILT_IN 1
+#define SX9385_SUB2 1
+#define SX9385_SUB2_BUILT_IN 1
+
+#define GRIP_CH1			0x1
+#define GRIP_CH2			0x2
+#define GRIP_CH1_CH2		0x3
+#define GRIP_NONE			0
+
+#if 1
+&sw_i2c0 {
+	gpios = <SEC_GPIO_REF(AP,pio,104) 0 /* sda */
+			SEC_GPIO_REF(AP,pio,103) 0>; /* scl */
+	pinctrl-0 = <&grip_i2c_sda
+				 &grip_i2c_scl
+				>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+	clock-frequency = <400000>;
+	pinctrl-names = "default";
+
+	sx9385: sx9385-i2c@29 {
+		compatible = "sx9385";
+		reg = <0x29>;
+		status = "okay";
+		pinctrl-names = "default";
+		pinctrl-0 = <&grip_int
+#if 1
+					 &grip_ldo_en
+#endif
+					>;
+
+		interrupt-parent = <SEC_GPIO_TYPE(AP,pio,12)>;
+		interrupts = <SEC_GPIO_NUM(AP,pio,12) 0 0>;
+
+#if 1
+		sx9385,ldo_en = <SEC_GPIO_REF(AP,pio,153) 0>;
+#else
+		sx9385,dvdd_vreg_name = "VDD_GRIP_3P3";
+#endif
+		sx9385,nirq-gpio = <SEC_GPIO_REF(AP,pio,12) 0>;
+		sx9385,unknown_sel = <3>;
+		sx9385,main-phases = <0x14>;
+		sx9385,ref-phases = <0xA>;
+#if 1
+		sx9385,set_up_channels = <GRIP_CH1_CH2>;
+#else
+		sx9385,num_of_channels = <${sx9385_main_num_of_channels}>;
+#endif
+		sx9385,num_of_refs = <2>; /* lego! */
+		sx9385,reg-num = <42>;
+		sx9385,reg-init = /bits/ 8 <
+		      0x02	0x00
+      0x04	0x00
+      0x05	0x18
+      0x07	0xc0
+      0x08	0x11
+      0x0b	0x0a
+      0x0d	0x06
+      0x0e	0x06
+      0x47	0x56
+      0x4d	0x56
+      0x54	0x56
+      0x5a	0x56
+      0x48	0x05
+      0x4e	0x05
+      0x55	0x05
+      0x5b	0x05
+      0x49	0x28
+      0x4f	0x28
+      0x56	0x34
+      0x5c	0x34
+      0x79	0x1b
+      0x7a	0x20
+      0x80	0x20
+      0x7b	0x60
+      0x7d	0x35
+      0x81	0x60
+      0x7c	0x1a
+      0x82	0x1a
+      0x83	0x35
+      0x7e	0x1a
+      0x84	0x36
+      0x7f	0x1b
+      0x91	0x00
+      0x92	0x00
+      0x9e	0x00
+      0x8c	0x00
+      0x90	0x00
+      0x4a	0x10
+      0x50	0x05
+      0x57	0x40
+      0x5d	0x04
+      0x09	0x78
+		>;
+	};
+};
+
+&pio {
+	grip_i2c_sda: grip-i2c-sda {
+		GPIO_CONFIG_PUD_DRV(AP,pio,104, FUNC_INPUT, PULL_NONE, DRV_LV1);
+	};
+
+	grip_i2c_scl: grip-i2c-scl {
+		GPIO_CONFIG_PUD_DRV(AP,pio,103, FUNC_INPUT, PULL_NONE, DRV_LV1);
+	};
+};
+&pio {
+	grip_int: grip-int {
+		GPIO_CONFIG_PUD_DRV(AP,pio,12, FUNC_INPUT_WAKEUP, PULL_NONE, DRV_LV1);
+	};
+};
+
+#if 1
+&pio {
+	grip_ldo_en: grip-ldo-en {
+		GPIO_CONFIG_PUD(AP,pio,153, FUNC_OUTPUT_HIGH, PULL_NONE);
+	};
+};
+#endif
+#endif
+
+#if 1
+&sw_i2c2 {
+	gpios = <SEC_GPIO_REF(AP,pio,108) 0 /* sda */
+			SEC_GPIO_REF(AP,pio,107) 0>; /* scl */
+	pinctrl-0 = <&grip_sub_i2c_sda
+				 &grip_sub_i2c_scl
+				>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+	clock-frequency = <400000>;
+	pinctrl-names = "default";
+	sx9385_sub: sx9385_sub-i2c@29 {
+		compatible = "sx9385_sub";
+		reg = <0x29>;
+		status = "okay";
+		pinctrl-names = "default";
+		pinctrl-0 = <&grip_sub_int
+#if 0
+					 &grip_sub_ldo_en
+#endif
+		>;
+		interrupt-parent = <SEC_GPIO_TYPE(AP,pio,5)>;
+		interrupts = <SEC_GPIO_NUM(AP,pio,5) 0 0>;
+#if 0
+		sx9385,ldo_en = <SEC_GPIO_REF(${gpio_grip_sub_en}) 0>;
+#elif 0
+		sx9385,dvdd_vreg_name = "VDD_GRIP_SUB_3P3";
+#endif
+
+		sx9385,nirq-gpio = <SEC_GPIO_REF(AP,pio,5) 0>;
+#if 1
+		sx9385,unknown_sel = <3>;
+#endif
+		sx9385,main-phases = <0x14>;
+		sx9385,ref-phases = <0xA>;
+#if 1
+		sx9385,set_up_channels = <GRIP_CH1>;
+#else
+		sx9385,num_of_channels = <${sx9385_sub_num_of_channels}>;
+#endif
+		sx9385,num_of_refs = <2>; /* lego! */
+		sx9385,reg-num = <42>;
+		sx9385,reg-init = /bits/ 8 <
+		      0x02	0x00
+      0x04	0x00
+      0x05	0x18
+      0x07	0xc0
+      0x08	0x11
+      0x0b	0x0a
+      0x0d	0x00
+      0x0e	0x66
+      0x47	0x55
+      0x4d	0x55
+      0x54	0x55
+      0x5a	0x55
+      0x48	0x05
+      0x4e	0x05
+      0x55	0x05
+      0x5b	0x05
+      0x49	0x40
+      0x4f	0x40
+      0x56	0x34
+      0x5c	0x34
+      0x79	0x1b
+      0x7a	0x20
+      0x80	0x20
+      0x7b	0x60
+      0x7d	0x35
+      0x81	0x60
+      0x7c	0x17
+      0x82	0x1a
+      0x83	0x35
+      0x7e	0x15
+      0x84	0x1a
+      0x7f	0x1b
+      0x91	0x00
+      0x92	0x00
+      0x9e	0x00
+      0x8c	0x00
+      0x90	0x00
+      0x4a	0x10
+      0x50	0x01
+      0x57	0x40
+      0x5d	0x04
+      0x09	0x18
+		>;
+	};
+};
+
+&pio {
+	grip_sub_i2c_sda: grip-sub-i2c-sda {
+		GPIO_CONFIG_PUD_DRV(AP,pio,108, FUNC_INPUT, PULL_NONE, DRV_LV1);
+	};
+	grip_sub_i2c_scl: grip-sub-i2c-scl {
+		GPIO_CONFIG_PUD_DRV(AP,pio,107, FUNC_INPUT, PULL_NONE, DRV_LV1);
+	};
+};
+
+&pio {
+	grip_sub_int: grip-sub-int {
+		GPIO_CONFIG_PUD_DRV(AP,pio,5, FUNC_INPUT_WAKEUP, PULL_NONE, DRV_LV1);
+	};
+};
+
+#if 0
+&${gpio_grip_sub_en_parent} {
+	grip_sub_ldo_en: grip-sub-ldo-en {
+		GPIO_CONFIG_PUD(${gpio_grip_sub_en}, FUNC_OUTPUT_LOW, PULL_NONE);
+	};
+};
+#endif
+#endif
+
+#if 0
+&${i2c_grip_sub2} {
+	gpios = <SEC_GPIO_REF(${gpio_grip_sub2_i2c_sda}) 0 /* sda */
+			SEC_GPIO_REF(${gpio_grip_sub2_i2c_scl}) 0>; /* scl */
+	pinctrl-0 = <&grip_sub2_i2c_sda
+				 &grip_sub2_i2c_scl
+				>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+	clock-frequency = <400000>;
+	pinctrl-names = "default";
+	sx9385_sub2: sx9385_sub2-i2c@29 {
+		compatible = "sx9385_sub2";
+		reg = <0x29>;
+		status = "okay";
+		pinctrl-names = "default";
+		pinctrl-0 = <&grip_sub2_int
+#if 0
+					 &grip_sub2_ldo_en
+#endif
+		>;
+		interrupt-parent = <SEC_GPIO_TYPE(${gpio_grip_sub2_irq})>;
+		interrupts = <SEC_GPIO_NUM(${gpio_grip_sub2_irq}) 0 0>;
+#if 0
+		sx9385,ldo_en = <SEC_GPIO_REF(${gpio_grip_sub2_en}) 0>;
+#elif 0
+		sx9385,dvdd_vreg_name = "VDD_GRIP_SUB2_3P3";
+#endif
+
+		sx9385,nirq-gpio = <SEC_GPIO_REF(${gpio_grip_sub2_irq}) 0>;
+#if 1
+		sx9385,unknown_sel = <3>;
+#endif
+		sx9385,main-phases = <0x14>;
+		sx9385,ref-phases = <0xA>;
+#if 1
+		sx9385,set_up_channels = <GRIP_NONE>;
+#else
+		sx9385,num_of_channels = <${sx9385_sub2_num_of_channels}>;
+#endif
+		sx9385,num_of_refs = <2>; /* lego! */
+		sx9385,reg-num = <>;
+		sx9385,reg-init = /bits/ 8 <
+		
+		>;
+	};
+};
+
+&${gpio_grip_sub2_i2c_parent} {
+	grip_sub2_i2c_sda: grip-sub2-i2c-sda {
+		GPIO_CONFIG_PUD_DRV(${gpio_grip_sub2_i2c_sda}, FUNC_INPUT, PULL_NONE, DRV_LV1);
+	};
+	grip_sub2_i2c_scl: grip-sub2-i2c-scl {
+		GPIO_CONFIG_PUD_DRV(${gpio_grip_sub2_i2c_scl}, FUNC_INPUT, PULL_NONE, DRV_LV1);
+	};
+};
+
+&${gpio_grip_sub2_irq_parent} {
+	grip_sub2_int: grip-sub2-int {
+		GPIO_CONFIG_PUD_DRV(${gpio_grip_sub2_irq}, FUNC_INPUT_WAKEUP, PULL_NONE, DRV_LV1);
+	};
+};
+
+#if 0
+&${gpio_grip_sub2_en_parent} {
+	grip_sub2_ldo_en: grip-sub2-ldo-en {
+		GPIO_CONFIG_PUD(${gpio_grip_sub2_en}, FUNC_OUTPUT_LOW, PULL_NONE);
+	};
+};
+#endif
+#endif
+
+#if 0
+&${i2c_grip_wifi} {
+	gpios = <SEC_GPIO_REF(${gpio_grip_wifi_i2c_sda}) 0 /* sda */
+			SEC_GPIO_REF(${gpio_grip_wifi_i2c_scl}) 0>; /* scl */
+	pinctrl-0 = <&grip_wifi_i2c_sda
+				 &grip_wifi_i2c_scl
+				>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+	clock-frequency = <400000>;
+	pinctrl-names = "default";
+	sx9385_wifi: sx9385_wifi-i2c@29 {
+		compatible = "sx9385_wifi";
+		reg = <0x29>;
+		status = "okay";
+		pinctrl-names = "default";
+		pinctrl-0 = <&grip_wifi_int
+#if 0
+					 &grip_wifi_ldo_en
+#endif
+		>;
+		interrupt-parent = <SEC_GPIO_TYPE(${gpio_grip_wifi_irq})>;
+		interrupts = <SEC_GPIO_NUM(${gpio_grip_wifi_irq}) 0 0>;
+#if 0
+		sx9385,ldo_en = <SEC_GPIO_REF(${gpio_grip_wifi_en}) 0>;
+#elif 0
+		sx9385,dvdd_vreg_name = "VDD_GRIP_wifi_3P3";
+#endif
+
+		sx9385,nirq-gpio = <SEC_GPIO_REF(${gpio_grip_wifi_irq}) 0>;
+#if 1
+		sx9385,unknown_sel = <3>;
+#endif
+		sx9385,main-phases = <0x14>;
+		sx9385,ref-phases = <0xA>;
+#if 1
+		sx9385,set_up_channels = <GRIP_NONE>;
+#else
+		sx9385,num_of_channels = <${sx9385_wifi_num_of_channels}>;
+#endif
+		sx9385,num_of_refs = <2>; /* lego! */
+		sx9385,reg-num = <>;
+		sx9385,reg-init = /bits/ 8 <
+		
+		>;
+	};
+};
+
+&${gpio_grip_wifi_i2c_parent} {
+	grip_wifi_i2c_sda: grip-wifi-i2c-sda {
+		GPIO_CONFIG_PUD_DRV(${gpio_grip_wifi_i2c_sda}, FUNC_INPUT, PULL_NONE, DRV_LV1);
+	};
+	grip_wifi_i2c_scl: grip-wifi-i2c-scl {
+		GPIO_CONFIG_PUD_DRV(${gpio_grip_wifi_i2c_scl}, FUNC_INPUT, PULL_NONE, DRV_LV1);
+	};
+};
+
+&${gpio_grip_wifi_irq_parent} {
+	grip_wifi_int: grip-wifi-int {
+		GPIO_CONFIG_PUD_DRV(${gpio_grip_wifi_irq}, FUNC_INPUT_WAKEUP, PULL_NONE, DRV_LV1);
+	};
+};
+
+#if 0
+&${gpio_grip_wifi_en_parent} {
+	grip_wifi_ldo_en: grip-wifi-ldo-en {
+		GPIO_CONFIG_PUD(${gpio_grip_wifi_en}, FUNC_OUTPUT_LOW, PULL_NONE);
+	};
+};
+#endif
+#endif
+
+/* /home/dpi/qb5_8814/workspace/P4_1716/android/kernel/kmodule/sensors/sx9385/dts/sx9385_hwparam.a17.dtsi */
+&pio {
+	grip2_gpio_nc1: grip_gpio_nc1 {
+		GPIO_CONFIG_PUD_DRV(AP,tlmm,107, FUNC_INPUT, PULL_DOWN, DRV_LV1);
+	};
+
+	grip2_gpio_nc2: grip_gpio_nc2 {
+		GPIO_CONFIG_PUD_DRV(AP,tlmm,108, FUNC_INPUT, PULL_DOWN, DRV_LV1);
+	};
+};
+
+&pio {
+	grip2_irq_nc: grip-irq-nc {
+		GPIO_CONFIG_PUD_DRV(AP,tlmm,5, FUNC_INPUT, PULL_DOWN, DRV_LV1);
+	};
+};
+
+&sw_i2c0 {
+	pinctrl-0 = <&grip_i2c_sda
+				 &grip_i2c_scl
+				 &grip2_gpio_nc1
+				 &grip2_gpio_nc2
+				>;
+};
+
+&sx9385 {
+	pinctrl-0 = <&grip_int
+				&grip2_irq_nc
+#if 1
+				&grip_ldo_en
+#endif
+				>;
+};
+
+
+
+/* /home/dpi/qb5_8814/workspace/P4_1716/android/kernel/kmodule/sensors/sx9385/dts/sx9385_hwparam.a17.03.dtsi */
+#if 1
+&grip_sub_i2c_sda {
+	pins_cmd_dat {
+		pinmux = <MTK_PINMUX(SEC_GPIO_NUM(AP,pio,108), 1)>;
+		bias-pull-up;
+	};
+};
+&grip_sub_i2c_scl {
+	pins_cmd_dat {
+		pinmux = <MTK_PINMUX(SEC_GPIO_NUM(AP,pio,107), 1)>;
+		bias-pull-up;
+	};
+};
+#endif
+
+&sw_i2c0 {
+	pinctrl-0 = <&grip_i2c_sda
+				 &grip_i2c_scl
+				>;
+};
+
+&sx9385 {
+	pinctrl-0 = <&grip_int
+#if 1
+				&grip_ldo_en
+#endif
+				>;
+	sx9385,ldo_en = <SEC_GPIO_REF(AP,pio,153) 0>;
+};
+
+&sx9385_sub {
+	sx9385,ldo_en = <SEC_GPIO_REF(AP,pio,153) 0>;
+};

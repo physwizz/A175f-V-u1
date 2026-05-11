@@ -1,0 +1,38 @@
+config KG_DRV
+	tristate "KG driver"
+	depends on !SEC_VTS_TEST
+	depends on !SEC_KUNIT
+	depends on !ARCH_QTI_VM
+	default n
+	help
+	  KG driver
+
+config KG_LOG
+	tristate "KG log"
+	depends on KG_DRV
+	default y
+	help
+	  KG log
+
+config KG_RESOURCE_CPU
+	tristate "KG resource cpu"
+	depends on KG_DRV
+	default y
+	help
+	  KG resource cpu
+
+config KG_RESOURCE_CPU_MAXFREQ_LIMIT
+	int "percentage of maxfreq limit"
+	depends on KG_RESOURCE_CPU
+	default 25
+	range 0 100
+	help
+	  0 means limit to minfreq. 100 means no limit.
+
+# CONFIG_KG_DRV_TEST should be disabled at user build
+config KG_DRV_TEST
+	tristate "KG driver test"
+	depends on KG_DRV
+	default n
+	help
+	  KG drv test

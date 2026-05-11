@@ -1,0 +1,17 @@
+#
+# ADI Authenticate IC
+#
+
+config BATTERY_AUTH_DS28E30
+	tristate "ADI Authenticate IC"
+	default n
+	help
+	  Say Y to ADI Authenticate IC.
+
+config A36XQ_AUTH_WA
+	bool "A36XQ_AUTH_WA"
+	default n
+	help
+	  Say Y here to enable
+	  This feature is used for A36xq model only
+	  It will be used as wa for A36xq SWI communication improvement
