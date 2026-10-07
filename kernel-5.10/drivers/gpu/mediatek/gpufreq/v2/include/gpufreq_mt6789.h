@@ -3,7 +3,7 @@
  * Copyright (C) 2021 MediaTek Inc.
  */
 
-#ifndef __GPUFREQ_MT6789_H__
+
 #define __GPUFREQ_MT6789_H__
 
 /**************************************************
